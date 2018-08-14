@@ -27,12 +27,13 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.GridVi
 
     private Context mContext;
     private List<HotCity> mData;
+    private List<String> mSelected;
     private InnerListener mInnerListener;
 
-    public GridListAdapter(Context context, List<HotCity> data) {
+    public GridListAdapter(Context context, List<HotCity> data, List<String> selected) {
         this.mContext = context;
         this.mData = data;
-        Log.d("lyttest", "GridListAdapter: " + data.toString());
+        this.mSelected = selected;
     }
 
     @Override
@@ -45,7 +46,6 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.GridVi
     public void onBindViewHolder(GridViewHolder holder, int position) {
         final int pos = holder.getAdapterPosition();
         final City data = mData.get(pos);
-        Log.d("lyttest", "wtf:" + position + ", " + data.toString());
 
         if (data == null) return;
         //设置item宽高
@@ -62,10 +62,9 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.GridVi
         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         holder.container.setLayoutParams(lp);
 
-        Log.d("lyttest", "wtf:" + data.getName());
         holder.name.setText(data.getName());
 
-        if (data.getSelected()) {
+        if (mSelected.contains(data.getName())) {
             holder.name.setTextColor(Color.parseColor("#EE5045"));
         } else {
             holder.name.setTextColor(Color.parseColor("#666666"));
@@ -83,7 +82,6 @@ public class GridListAdapter extends RecyclerView.Adapter<GridListAdapter.GridVi
 
     @Override
     public int getItemCount() {
-//        Log.d("lyttest", "getItemCount: " + mData.size());
         return mData == null ? 0 : mData.size();
     }
 

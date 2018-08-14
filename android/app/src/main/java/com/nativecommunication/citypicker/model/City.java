@@ -5,22 +5,13 @@ import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * author Bro0cL on 2016/1/26.
- */
 public class City {
     private String name;
-    private String province;
     private String pinyin;
-    private String code;
-    private Boolean selected;
 
-    public City(String name, String province, String pinyin, String code, Boolean selected) {
+    public City(String name, String pinyin) {
         this.name = name;
-        this.province = province;
         this.pinyin = pinyin;
-        this.code = code;
-        this.selected = selected;
     }
 
     /***
@@ -60,24 +51,4 @@ public class City {
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
     }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setSelected(Boolean selected) { this.selected = selected; }
-
-    public Boolean getSelected() { return this.selected; }
 }

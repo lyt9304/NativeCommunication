@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<include layout="@layout/cp_search_view" />-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,16 +14,16 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/cp_overlay"-->
-            <!--android:layout_width="?attr/cpOverlayWidth"-->
-            <!--android:layout_height="?attr/cpOverlayHeight"-->
-            <!--android:visibility="gone"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:textSize="?attr/cpOverlayTextSize"-->
-            <!--android:textColor="?attr/cpOverlayTextColor"-->
-            <!--android:background="?attr/cpOverlayBackground"/>-->
+        <TextView
+            android:id="@+id/cp_overlay"
+            android:layout_width="?attr/cpOverlayWidth"
+            android:layout_height="?attr/cpOverlayHeight"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textSize="?attr/cpOverlayTextSize"
+            android:textColor="?attr/cpOverlayTextColor"
+            android:background="?attr/cpOverlayBackground"/>
 
         <!--右侧字母导航-->
         <com.nativecommunication.citypicker.view.SideIndexBar
@@ -35,6 +33,5 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
-        <!--<include layout="@layout/cp_empty_view"/>-->
     </RelativeLayout>
 </LinearLayout>

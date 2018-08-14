@@ -22,7 +22,8 @@ const LytCalendarView = requireNativeComponent(
 		name: "LytCalendarView",
 		propTypes: {
 			cities: PropTypes.array,
-			// selected: PropTypes.array,
+			hotCities: PropTypes.array,
+			selected: PropTypes.array,
 			...ViewPropTypes
 		}
 	},
@@ -32,8 +33,8 @@ const LytCalendarView = requireNativeComponent(
 export default class App extends React.Component<{}> {
 	state = {
 		areas: [],
-		loaded: false
-		// selected: []
+		loaded: false,
+		selected: []
 	}
 
 	componentDidMount() {
@@ -45,8 +46,8 @@ export default class App extends React.Component<{}> {
 					for (const city of section.children) {
 						areas.push({
 							name: city.name,
-							pinyin: city.pinyin,
-							selected: false
+							pinyin: city.pinyin
+							// selected: false
 						})
 					}
 				}
@@ -73,63 +74,55 @@ export default class App extends React.Component<{}> {
 	}
 
 	onSelect = event => {
-		const { city: selected } = event.nativeEvent
-
-		const newAreas = []
-
-		for (const city of this.state.areas) {
-			newAreas.push({
-				name: city.name,
-				pinyin: city.pinyin,
-				selected:
-					selected === city.name ? !city.selected : city.selected
-			})
+		const { city } = event.nativeEvent
+		const set = new Set<string>(this.state.selected)
+		if (set.has(city)) {
+			set.delete(city)
+		} else {
+			set.add(city)
 		}
-
-		// const { selected } = this.state
-		// const set = new Set<string>(selected)
-		// if (set.has(city)) {
-		// 	set.delete(city)
-		// } else {
-		// 	set.add(city)
-		// }
-		// this.setState({ selected: Array.from(set) })
-		// console.log(Array.from(set))
-
-		// console.log(event)
-		// console.log(event.nativeEvent.city)
-
-		this.setState({ areas: newAreas })
+		console.log(Array.from(set))
+		this.setState({ selected: Array.from(set) })
 	}
 
 	render() {
 		const { width, height } = Dimensions.get("window")
-		const { loaded, areas } = this.state
+		const { loaded, areas, selected } = this.state
 		return (
-			<View>
+			<View style={{ paddingBottom: 20 }}>
 				<ScrollView
 					style={{ width: "100%", height: 50 }}
 					horizontal={true}
 				>
-					{areas.filter(item => item.selected).map(item => (
-						<Text style={{ margin: 10 }} key={item.name}>
-							{item.name}
+					{selected.map(item => (
+						<Text style={{ margin: 10 }} key={item}>
+							{item}
 						</Text>
 					))}
 				</ScrollView>
-				{/* <TouchableOpacity onPress={() => this.onSelect("阿拉善")}>
-					<Text>改selected</Text>
-				</TouchableOpacity> */}
 				{!loaded ? (
 					<Text>Loading...</Text>
 				) : (
 					<LytCalendarView
-						height={height}
+						height={height - 50}
 						width={width}
 						cities={areas}
+						hotCities={[
+							"上海",
+							"广州",
+							"重庆",
+							"成都",
+							"武汉",
+							"苏州",
+							"北京",
+							"昆明",
+							"西安",
+							"青岛",
+							"深圳",
+							"南京"
+						]}
+						selected={selected}
 						onChange={this.onSelect}
-						// selected={selected}
-						// onSelect={this.onSelect}
 					/>
 				)}
 			</View>
